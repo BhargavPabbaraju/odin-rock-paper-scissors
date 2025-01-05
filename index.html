@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const choices = ["rock","paper","scissors"];
+        // Pick a random choice from Rock,Paper,Scissors
+        function getComputerChoice(){
+            const choice = Math.floor(Math.random()*3);
+            
+            return choices[choice];
+        }
+        
+        // Let the user input a choice (case sensitive)
+        function getHumanChoice(){
+            const choice = prompt("Choose rock/paper/scissors");
+
+            return choice.toLowerCase();
+        }
+
+        function didPlayerWin(humanChoice,computerChoice){
+            switch(humanChoice){
+                case "rock":
+                    return computerChoice!=="paper";
+                    break;
+                case "paper":
+                    return computerChoice!=="scissors";
+                    break;
+                case "scissors":
+                    return computerChoice!=="rock";
+                    break;
+            }
+        }
+
+        function capitalize(choice){
+            return choice.charAt(0).toUpperCase() + choice.slice(1);
+        }
+
+        let humanScore =0;
+        let computerScore = 0;
+
+        function playRound(humanChoice, computerChoice){
+            while(!choices.includes(humanChoice)){
+                alert("Please only pick from rock/paper/scissors");
+                humanChoice = getHumanChoice();
+            }
+            if(humanChoice === computerChoice){
+                console.log("It's a draw!");
+                alert("It's a draw!");
+            }
+            else if(didPlayerWin(humanChoice,computerChoice)){
+                console.log(`You Won! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
+                alert(`You Won! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
+            }
+            else{
+                console.log(`You Lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}`);
+                alert(`You Lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}`);
+            }
+        }
+        
+        for(let i=0;i<5;i++){
+            playRound(getHumanChoice(),getComputerChoice());
+        }
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
