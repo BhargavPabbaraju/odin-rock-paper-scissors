@@ -53,15 +53,21 @@
             else if(didPlayerWin(humanChoice,computerChoice)){
                 console.log(`You Won! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
                 alert(`You Won! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}`);
+                humanScore+=1;
             }
             else{
                 console.log(`You Lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}`);
                 alert(`You Lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}`);
+                computerScore+=1;
             }
+            console.log("Human Score: "+humanScore);
+            console.log("Computer Score: "+computerScore);
         }
         
         for(let i=0;i<5;i++){
+            console.group(`Round ${i+1}: `);
             playRound(getHumanChoice(),getComputerChoice());
+            console.groupEnd(`Round ${i+1}: `);
         }
 
 
