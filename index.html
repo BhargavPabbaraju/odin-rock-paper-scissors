@@ -4,6 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        .buttons{
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .button{
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        button{
+            padding: 8px 16px;
+        }
+        .scores{
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        h3{
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock, Paper, Scissors</h1>
+    <h3>Pick one:</h3>
+    <div class="buttons">
+        <div class="button">
+            <img src="https://images.unsplash.com/photo-1521270095464-30665cd41e6f?q=80&w=2825&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Rock" width="150" height="100">
+            <button value="rock">Rock</button>
+        </div>
+        <div class="button">
+            <img src="https://images.unsplash.com/photo-1470790376778-a9fbc86d70e2?q=80&w=2804&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Paper" width="150" height="100">
+            <button value="paper">Paper</button>
+        </div>
+        <div class="button">
+            <img src="https://images.unsplash.com/photo-1503792501406-2c40da09e1e2?q=80&w=2946&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Scissors" width="150" height="100">
+            <button  value="scissors">Scissors</button>
+        </div>
+    </div>
+
+    <div>
+        <h3>Scores:</h3>
+        <div class="scores">
+            
+            <h5>You: </h5>
+            <p id="humanScore">0</p>
+        
+            <h5>Opponent: </h5>
+            <p id="computerScore">0</p>
+            
+        </div>
+    </div>
+
     <script>
         const choices = ["rock","paper","scissors"];
         // Pick a random choice from Rock,Paper,Scissors
@@ -42,10 +107,6 @@
         let computerScore = 0;
 
         function playRound(humanChoice, computerChoice){
-            while(!choices.includes(humanChoice)){
-                alert("Please only pick from rock/paper/scissors");
-                humanChoice = getHumanChoice();
-            }
             console.log(`You chose ${capitalize(humanChoice)}`);
             console.log(`The computer chose ${capitalize(computerChoice)}`);
             if(humanChoice === computerChoice){
@@ -65,17 +126,23 @@
             console.log("Human Score: "+humanScore);
             console.log("Computer Score: "+computerScore);
         }
+
+        const buttons = document.querySelector(".buttons");
+        buttons.addEventListener("click",(e)=>{
+            playRound(e.target.value,getComputerChoice());
+            const humanScoreDisplay = document.querySelector("#humanScore");
+            const computerScoreDisplay = document.querySelector("#computerScore");
+            humanScoreDisplay.innerText = humanScore;
+            computerScoreDisplay.innerText = computerScore;
+
+            if((humanScore >=5 || computerScore>=5) && humanScore!==computerScore){
+                buttons.removeEventListener("click",this);
+                document.querySelector("body").innerText = `${humanScore > computerScore ? "You" : "Opponent"} Won!`
+            }
+
+        });
         
-        for(let i=0;i<5;i++){
-            console.group(`Round ${i+1}: `);
-            playRound(getHumanChoice(),getComputerChoice());
-            console.groupEnd(`Round ${i+1}: `);
-        }
-
-
+        
     </script>
-</head>
-<body>
-    
 </body>
 </html>
